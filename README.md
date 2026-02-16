@@ -110,16 +110,5 @@ This tool:
 - **shows attack surface** ✅
 
 Real pentest — starts with recon 🔥
-
----
-
-## 📜 License
-
-MIT License
-Free to use, modify, improve 🚀
-
----
-
-##
-
+=
 If you find a feature, improvement or bug — open a PR ✌️
