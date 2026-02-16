@@ -1,4 +1,4 @@
-# 🔍 v3.1
+# 🔍 Whois v3.1
 ### WHOIS & DNS Analyzer (GUI)
 
 🛡️ **Red Team / Pentest Reconnaissance Tool**
