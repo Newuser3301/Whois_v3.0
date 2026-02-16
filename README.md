@@ -1,36 +1,36 @@
-# 🔍  v3.1  
+# 🔍 v3.1
 ### WHOIS & DNS Analyzer (GUI)
 
-🛡️ **Red Team / Pentest Reconnaissance Tool**  
-Python + PyQt6 asosida yozilgan kuchli **WHOIS, DNS va attack surface analizatori**.  
-Domenlar bo‘yicha **tezkor recon**, **zaif konfiguratsiyalarni aniqlash** va **hisobot yaratish** uchun mo‘ljallangan.
+🛡️ **Red Team / Pentest Reconnaissance Tool**
+A powerful **WHOIS, DNS and attack surface analyzer** written in Python + PyQt6.
+Designed for **quick recon**, **detection of weak configurations** and **report generation** across domains.
 
 ---
 
-## 🚀 Xususiyatlar
+## 🚀 Features
 
-✅ **WHOIS tahlili**
+✅ **WHOIS Analysis**
 - Registrar, IANA ID
 - Creation / Expiry / Update date
-- Name Server’lar
-- DNSSEC holati
+- Name Servers
+- DNSSEC status
 - Abuse contact (email / phone)
 - RAW WHOIS output (socket + fallback)
 
-🌐 **DNS analiz**
+🌐 **DNS Analysis**
 - A, AAAA, MX, TXT, NS, CNAME, SOA, PTR, CAA
-- TTL ko‘rinishi
-- Barcha record’larni bir bosishda skanerlash
+- TTL view
+- Scan all records in one click
 
 ⚔️ **Attack Vector Analysis**
-- DNSSEC yo‘qligi
+- Lack of DNSSEC
 - Domain transfer protection
-- SPF / DMARC / Email spoofing risklari
+- SPF / DMARC / Email spoofing risks
 - Cloudflare origin IP exposure
-- Open registrar risklari
+- Open registry risks
 - Real-world recon mindset 👀
 
-📊 **Hisobotlar**
+📊 **Reports**
 - JSON export
 - TXT report
 - Live preview
@@ -39,12 +39,12 @@ Domenlar bo‘yicha **tezkor recon**, **zaif konfiguratsiyalarni aniqlash** va *
 🖥️ **GUI (PyQt6)**
 - Dark red-team theme
 - Multi-tab interface
-- Threaded scan (UI freeze yo‘q)
+- Threaded scan (no UI freeze)
 - Progress bar + status feedback
 
 ---
 
-## 🧰 Texnologiyalar
+## 🧰 Technologies
 
 - **Python 3**
 - **PyQt6**
@@ -55,7 +55,7 @@ Domenlar bo‘yicha **tezkor recon**, **zaif konfiguratsiyalarni aniqlash** va *
 
 ---
 
-## 📦 O‘rnatish
+## 📦 Installation
 
 ```bash
 git clone https://github.com/USERNAME/pentest-recon.git
@@ -73,54 +73,53 @@ PyQt6
 
 ---
 
-## ▶️ Ishga tushirish
+## ▶️ Launch
 
 ```bash
 python3 whois1.py
 ```
 
-🧠 Domen kiriting → **RECON START** → natijalarni tab’larda ko‘ring.
+🧠 Enter domain → **RECON START** → see results in tabs.
 
 ---
 
 ## 📸 Interface
 
-- 📋 WHOIS ma’lumotlari
+- 📋 WHOIS information
 - 🌐 DNS records
-- ⚔️ Attack vektorlar
+- ⚔️ Attack vectors
 - 📄 RAW output
 - 📊 Report preview
 
-(kerak bo‘lsa keyin screenshot qo‘shib qo‘yasan 😉)
+(if necessary, you can add a screenshot later 😉)
 
 ---
 
-## ⚠️ Ogohlantirish
+## ⚠️ Warning
 
-> Ushbu tool **faqat ta’limiy va qonuniy pentest / security audit** maqsadlarida ishlatiladi.  
-> Ruxsatsiz skanerlash — **sizning javobgarligingizda**.
-
----
-
-## 🧠 Red Team Eslatma
-
-Bu tool:
-- exploit qilmaydi ❌  
-- auto-hack qilmaydi ❌  
-- **attack surface ko‘rsatadi** ✅  
-
-Haqiqiy pentest — recon’dan boshlanadi 🔥
+> This tool is for **educational and legal pentest / security audit** purposes only.
+> Unauthorized scanning — **at your own risk**.
 
 ---
 
-## 📜 Litsenziya
+## 🧠 Red Team Note
 
-MIT License  
+This tool:
+- does not exploit ❌
+- does not auto-hack ❌
+- **shows attack surface** ✅
+
+Real pentest — starts with recon 🔥
+
+---
+
+## 📜 License
+
+MIT License
 Free to use, modify, improve 🚀
 
 ---
 
-## ✨ Muallif
+##
 
-👤 **Red Team / SEM AI style**  
-Agar feature, improvement yoki bug topsang — PR och ✌️
+If you find a feature, improvement or bug — open a PR ✌️
