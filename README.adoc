@@ -1,156 +1,172 @@
-= Pentest Recon Tool
+= 🛡️ Whois_v3.0
 :toc:
 :toclevels: 3
 :sectnums:
 :icons: font
 :source-highlighter: rouge
 
-Python/PyQt6 asosidagi WHOIS, DNS, passive OSINT, WAF/CDN fingerprint, Nmap port scan, web technology, CVE va TLS sertifikat tahlil GUI dasturi.
+*All-in-One Passive & Active Reconnaissance Suite for Ethical Hackers & Security Researchers*
 
-Ilova bitta domen bo'yicha rekognitsiya natijalarini alohida tablarda ko'rsatadi va JSON/TXT hisobot saqlash imkonini beradi.
+---
 
-IMPORTANT: Dasturdan faqat o'zingizga tegishli yoki tekshirishga yozma ruxsatingiz bor domenlar uchun foydalaning. Nmap port scan aktiv tekshiruv hisoblanadi.
+image:https://img.shields.io/badge/Python-3.11%2B-blue[Python,link=] image:https://img.shields.io/badge/GUI-PyQt6-green[PyQt6,link=] image:https://img.shields.io/badge/License-Educational-orange[License,link=] image:https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS-lightgrey[Platform,link=]
 
-== Asosiy Imkoniyatlar
+A powerful, modern GUI application built with Python and PyQt6 that streamlines the reconnaissance phase of penetration testing. Consolidates *WHOIS*, *DNS enumeration*, *passive OSINT*, *WAF/CDN fingerprinting*, *Nmap port scanning*, *web technology analysis*, *CVE detection*, and *TLS certificate analysis* into a single, intuitive interface.
+
+Results are displayed in organized tabs and can be exported to *JSON* or *TXT* reports with one click.
+
+IMPORTANT: Use this tool *only* on domains you own or have explicit written permission to test. Nmap port scanning constitutes active reconnaissance and may be illegal without proper authorization.
+
+---
+
+== ✨ Key Features
 
 [cols="1,3", options="header"]
 |===
 |Tab
-|Vazifasi
+|Capability
 
-|WHOIS MA'LUMOTLARI
-|Domen ro'yxatdan o'tgan registrar, sana, status, DNSSEC, abuse contact va name serverlarni ko'rsatadi.
+|*WHOIS*
+|Retrieves registrar, registration dates, domain status, DNSSEC, abuse contacts, and name servers.
 
-|DNS RECORDS
-|A, AAAA, MX, TXT, NS, CNAME, SOA, CAA yozuvlarini tekshiradi. Alohida record yoki hammasini qayta tekshirish mumkin.
+|*DNS Records*
+|Queries A, AAAA, MX, TXT, NS, CNAME, SOA, CAA records with individual or bulk refresh.
 
-|SUBDOMAINS
-|Subfinder mavjud bo'lsa undan, aks holda ko'p public passive manbalardan subdomain yig'adi.
+|*Subdomains*
+|Discovers subdomains via `subfinder` (if installed) or 10+ public passive sources.
 
-|OSINT
-|Faqat passive manbalardan email, URL, interesting URL, passive host va source statuslarni chiqaradi.
+|*OSINT*
+|Harvests emails, URLs, interesting paths, passive hosts — 100% passive reconnaissance.
 
-|WAF/FIREWALL
-|DNS, IP range, HTTP header/cookie/server fingerprintlari orqali WAF/CDN provayderini taxmin qiladi.
+|*WAF / Firewall*
+|Fingerprints WAF/CDN providers via DNS markers, IP ranges, HTTP headers, cookies, and server signatures.
 
-|NMAP PORTS
-|`python-nmap` orqali top 100 TCP portni tekshiradi va faqat ochiq portlarni ko'rsatadi.
+|*Nmap Ports*
+|Scans top 100 TCP ports using `python-nmap` — displays only open ports.
 
-|TECH/CVE
-|`builtwith` va HTTP header fingerprintlari orqali texnologiyalarni topadi, `nvdlib` orqali mos CVE raqamlarini izlaydi.
+|*Tech & CVE*
+|Detects web technologies via BuiltWith and HTTP headers, then searches matching CVEs via `nvdlib`.
 
-|TLS
-|`cryptography` va `pyOpenSSL` orqali TLS sertifikat, SAN, issuer, validity, cipher va protocol ma'lumotlarini chiqaradi.
+|*TLS Analysis*
+|Deep-dives into TLS certificates: SAN, issuer, validity, ciphers, protocols, and anomaly indicators.
 
-|HUJUM VEKTORLARI
-|DNSSEC, SPF, DMARC, Cloudflare/origin IP va boshqa indikatorlardan xavfli joylarni umumlashtiradi.
+|*Attack Vectors*
+|Summarizes risky findings: DNSSEC gaps, SPF/DMARC misconfigurations, exposed origin IPs, and more.
 
-|RAW OUTPUT
-|Barcha natijalarni raw JSON/text ko'rinishida ko'rsatadi.
+|*Raw Output*
+|Full raw JSON/text view of all collected data for debugging and custom parsing.
 
-|HISOBOT
-|TXT yoki JSON hisobot saqlash va natijalarni clipboardga nusxalash imkonini beradi.
+|*Report*
+|Export results to JSON or TXT, or copy everything to clipboard instantly.
 |===
 
-== Loyiha Tuzilmasi
+---
+
+== 🧰 Project Structure
 
 [source,text]
 ----
 .
-├── whois1.py
+├── whois1.py                # Entrypoint — launches the GUI application
 └── recon_tool/
     ├── __init__.py
-    ├── gui.py
-    ├── utils.py
-    └── workers.py
+    ├── gui.py               # PyQt6 main window, tabs, rendering, report/export logic
+    ├── utils.py             # Domain normalization, Cloudflare IP helpers, utility functions
+    └── workers.py           # All recon workers: WHOIS, DNS, OSINT, WAF, Nmap, Tech/CVE, TLS
 ----
 
 [cols="1,3", options="header"]
 |===
-|Fayl
-|Tavsif
+|File
+|Description
 
 |`whois1.py`
-|Kichik entrypoint. GUI ilovani ishga tushiradi.
+|Minimal entrypoint. Bootstraps and launches the GUI application.
 
 |`recon_tool/gui.py`
-|PyQt6 oynasi, tablar, natijalarni ko'rsatish, report/export funksiyalari.
+|PyQt6 main window, all tabs, result rendering, report generation, and export functionality.
 
 |`recon_tool/workers.py`
-|WHOIS, DNS, passive OSINT, WAF, Nmap, Tech/CVE va TLS worker mantiqi.
+|Core logic for WHOIS, DNS, passive OSINT, WAF fingerprinting, Nmap scanning, Tech/CVE detection, and TLS analysis.
 
 |`recon_tool/utils.py`
-|Domen normalizatsiyasi, Cloudflare IP helperlari va umumiy utility funksiyalar.
+|Domain normalization, Cloudflare IP range helpers, and shared utility functions.
 |===
 
-== Talablar
+---
 
-=== Python
+== 📋 Requirements
 
-Python 3.11+ tavsiya qilinadi. Dastur sizdagi muhitda Python 3.15 bilan ishlatilgan.
+=== Python Version
 
-=== Python kutubxonalari
+*Python 3.11+* is recommended. This tool has been tested and runs smoothly on Python 3.15.
 
-Minimal kerakli kutubxonalar:
+=== Python Libraries
+
+Install all required dependencies:
 
 [source,powershell]
 ----
 pip install PyQt6 python-whois dnspython python-nmap requests cryptography pyOpenSSL builtwith nvdlib Wappalyzer
 ----
 
-NOTE: `Wappalyzer` paketi Playwright dependencylarini o'rnatishi mumkin. Hozirgi kod asosan `builtwith` va header fingerprintlardan foydalanadi; Wappalyzer keyingi kengaytirish uchun tayyor turadi.
+NOTE: The `Wappalyzer` package may install Playwright dependencies. The current implementation primarily uses `builtwith` and HTTP header fingerprints; Wappalyzer is available for future expansion.
 
-=== Tashqi dasturlar
+=== External Tools
 
-`python-nmap` ishlashi uchun tizimda `nmap.exe` o'rnatilgan va PATH orqali topiladigan bo'lishi kerak.
+*Nmap* must be installed and accessible via PATH for `python-nmap` to function.
 
-Windows uchun:
+Windows installation:
 
 [source,text]
 ----
 https://nmap.org/download.html
 ----
 
-Tekshirish:
+Verify installation:
 
 [source,powershell]
 ----
 Get-Command nmap
 ----
 
-Subdomain topish kuchliroq bo'lishi uchun optional:
+For enhanced subdomain discovery (optional):
 
 [source,powershell]
 ----
 subfinder -version
 ----
 
-`subfinder` mavjud bo'lmasa ham dastur public passive manbalar bilan ishlayveradi.
+If `subfinder` is not installed, the tool gracefully falls back to public passive sources.
 
-== Ishga Tushirish
+---
 
-Loyiha papkasida:
+== 🚀 Quick Start
+
+Navigate to the project directory and run:
 
 [source,powershell]
 ----
 python whois1.py
 ----
 
-GUI ochilgach:
+Once the GUI launches:
 
-. Domen kiriting, masalan `example.com`.
-. `RECON START` tugmasini bosing.
-. Natijalarni tablar orqali ko'ring.
-. Kerak bo'lsa `HISOBOT` tabidan JSON/TXT saqlang.
+. Enter a domain (e.g., `example.com`)
+. Click the *RECON START* button
+. Browse results across all tabs
+. Export to JSON or TXT from the *Report* tab if needed
 
-== Domen Input Qoidalari
+---
 
-Dastur kiritilgan qiymatni normalizatsiya qiladi:
+== 📥 Domain Input Rules
+
+The tool automatically normalizes user input:
 
 [cols="1,1", options="header"]
 |===
-|Kiritilgan
-|Normalizatsiya
+|Input
+|Normalized
 
 |`https://Example.COM/path?q=1`
 |`example.com`
@@ -162,140 +178,156 @@ Dastur kiritilgan qiymatni normalizatsiya qiladi:
 |`example.com`
 |===
 
-Noto'g'ri domen formatida GUI ogohlantirish chiqaradi.
+Invalid domain formats trigger a GUI warning.
 
-== Tezlik va Asinxronlik
+---
 
-Recon worker `asyncio` va `ThreadPoolExecutor` orqali mustaqil ishlarni parallel bajaradi:
+== ⚡ Performance & Asynchronous Design
 
-* WHOIS
-* DNS
-* passive subdomain
-* TLS
-* technology detection
-* Nmap
-* WAF/CDN fingerprint
-* OSINT URL/email yig'ish
-* CVE qidirish
+The recon engine leverages `asyncio` and `ThreadPoolExecutor` to execute independent tasks in parallel:
 
-Bitta modul xato bersa, butun scan yiqilmaydi. O'sha tabda status yoki qisqa xabar ko'rsatiladi.
+- WHOIS lookup
+- DNS queries
+- Passive subdomain enumeration
+- TLS certificate analysis
+- Technology detection
+- Nmap port scanning
+- WAF/CDN fingerprinting
+- OSINT URL/email harvesting
+- CVE search
 
-== Passive Subdomain Manbalari
+If a single module fails, the entire scan continues uninterrupted. The affected tab shows a brief error status or message.
 
-Quyidagi manbalar ishlatiladi:
+---
 
-* `subfinder`, agar tizimda o'rnatilgan bo'lsa
-* `crt.sh`
-* CertSpotter
-* AlienVault OTX
-* HackerTarget
-* URLScan
-* RapidDNS
-* Wayback CDX
-* BufferOver
-* ThreatMiner
-* AnubisDB
+== 🌐 Passive Subdomain Sources
 
-Public manbalar ba'zan `429`, `500`, `503`, DNS error yoki timeout qaytarishi mumkin. Bu normal holat. GUI `OSINT -> Sources` bo'limida buni `rate limited`, `timeout`, `service unavailable` kabi qisqa status bilan ko'rsatadi.
+The following public sources are queried:
 
-== WAF/FIREWALL Aniqlash
+- `subfinder` (if installed locally)
+- `crt.sh`
+- CertSpotter
+- AlienVault OTX
+- HackerTarget
+- URLScan
+- RapidDNS
+- Wayback CDX
+- BufferOver
+- ThreatMiner
+- AnubisDB
 
-Aniqlash quyidagilarga asoslanadi:
+Public sources may occasionally return `429`, `500`, `503`, DNS errors, or timeouts. This is expected behavior. The GUI reflects these statuses in the *OSINT → Sources* panel as `rate limited`, `timeout`, or `service unavailable`.
 
-* DNS markerlar
-* Cloudflare IP range
-* HTTP response headerlari
-* Cookie/server fingerprintlar
+---
 
-Taniladigan provayderlar:
+== 🛡️ WAF / Firewall Detection
 
-* Cloudflare
-* Akamai
-* AWS CloudFront / AWS WAF
-* Fastly
-* Imperva / Incapsula
-* Sucuri
-* F5 BIG-IP ASM
-* Barracuda
-* StackPath
-* Azure Front Door / App Gateway
-* Google Cloud Armor
-* DDoS-Guard
-* BunnyCDN
+Detection is based on:
 
-NOTE: Bu fingerprint taxminiy. WAF topilmasa, bu WAF yo'q degani emas.
+- DNS markers
+- Cloudflare IP range matching
+- HTTP response headers
+- Cookie and server fingerprints
 
-== Nmap Port Scan
+Recognized providers include:
 
-Nmap tab quyidagi argument bilan ishlaydi:
+- Cloudflare
+- Akamai
+- AWS CloudFront / AWS WAF
+- Fastly
+- Imperva / Incapsula
+- Sucuri
+- F5 BIG-IP ASM
+- Barracuda
+- StackPath
+- Azure Front Door / App Gateway
+- Google Cloud Armor
+- DDoS-Guard
+- BunnyCDN
+
+NOTE: Fingerprinting is heuristic and approximate. Absence of a detected WAF does not guarantee protection is absent.
+
+---
+
+== 🔍 Nmap Port Scanning
+
+The Nmap tab executes with the following arguments:
 
 [source,text]
 ----
 -Pn -T3 --top-ports 100 --open
 ----
 
-Bu faqat top 100 TCP port ichidan ochiqlarini ko'rsatadi.
+This scans only the top 100 TCP ports and displays exclusively open ones.
 
-CAUTION: Nmap aktiv scan hisoblanadi. Faqat ruxsatli targetlarda ishlating.
+CAUTION: Nmap is an active scan. Use *only* on authorized targets.
 
-== Technology va CVE
+---
 
-Technology detection:
+== 🔬 Technology & CVE Detection
 
-* `builtwith.parse()`
-* HTTP header fingerprintlari
+Technology detection methods:
+
+- `builtwith.parse()`
+- HTTP header fingerprinting
 
 CVE lookup:
 
-* `nvdlib.searchCVE()`
-* Har bir aniqlangan texnologiya bo'yicha cheklangan miqdorda CVE qidiriladi.
+- `nvdlib.searchCVE()`
+- Limited CVE queries per detected technology
 
-NOTE: NVD API rate-limit qilishi mumkin. Bunday holatda `TECH/CVE -> Sources` yoki `CVE Matches` statuslarida ko'rsatiladi.
+NOTE: The NVD API may enforce rate limits. When this occurs, status indicators in the *TECH/CVE → Sources* or *CVE Matches* panel reflect the condition.
 
-== TLS Tahlili
+---
 
-TLS tab quyidagilarni chiqaradi:
+== 🔐 TLS Analysis
 
-* subject
-* issuer
-* serial number
-* not before / not after
-* signature hash
-* SAN ro'yxati
-* cipher name
-* TLS protocol
-* oddiy issue indikatorlari
+The TLS tab extracts and displays:
 
-Kutubxonalar:
+- Subject
+- Issuer
+- Serial number
+- Validity period (not before / not after)
+- Signature hash algorithm
+- SAN (Subject Alternative Names) list
+- Cipher suite name
+- TLS protocol version
+- Common issue indicators
 
-* `cryptography`
-* `pyOpenSSL`
-* Python `ssl`
+Libraries used:
 
-== Hisobotlar
+- `cryptography`
+- `pyOpenSSL`
+- Python `ssl`
 
-`HISOBOT` tabida:
+---
 
-* JSON hisobot saqlash
-* TXT hisobot saqlash
-* barcha natijalarni clipboardga nusxalash
+== 📄 Reports
 
-JSON export `last_results` obyektini yozadi, ya'ni barcha tab natijalari strukturali saqlanadi.
+From the *Report* tab, you can:
 
-== Troubleshooting
+- Save complete results as *JSON*
+- Save summarized results as *TXT*
+- Copy all results to clipboard instantly
 
-=== GUI ochilmayapti
+JSON exports write the `last_results` object, preserving all tab data in a structured format.
 
-PyQt6 o'rnatilganini tekshiring:
+---
+
+== 🛠️ Troubleshooting
+
+=== GUI Fails to Launch
+
+Verify PyQt6 installation:
 
 [source,powershell]
 ----
 python -c "import PyQt6; print('ok')"
 ----
 
-=== Nmap ishlamayapti
+=== Nmap Not Working
 
-Quyidagilarni tekshiring:
+Check both the Python library and system executable:
 
 [source,powershell]
 ----
@@ -303,65 +335,78 @@ python -c "import nmap; print('python-nmap ok')"
 Get-Command nmap
 ----
 
-Agar `Get-Command nmap` natija bermasa, Nmap o'rnating va PATH ga qo'shing.
+If `Get-Command nmap` returns nothing, install Nmap and add it to PATH.
 
-=== Passive source xatolari chiqyapti
+=== Passive Source Errors
 
-`429`, `500`, `503`, `timeout` va DNS xatolari public OSINT servislarida odatiy. Dastur qolgan manbalar bilan davom etadi.
+`429`, `500`, `503`, `timeout`, and DNS errors are common with free public OSINT services. The tool gracefully continues with remaining sources.
 
-=== CVE natija chiqmayapti
+=== No CVE Results
 
-Sabablar:
+Possible reasons:
 
-* NVD vaqtincha javob bermayapti
-* rate-limit
-* texnologiya nomi juda umumiy
-* versiya aniqlanmagan
+- NVD API temporarily unavailable
+- Rate limiting in effect
+- Technology name is too generic
+- Version information not detected
 
-=== TLS error
+=== TLS Errors
 
-Sabablar:
+Possible reasons:
 
-* 443 port yopiq
-* SNI qo'llab-quvvatlanmaydi
-* sertifikat zanjiri muammoli
-* tarmoq/proxy xatosi
+- Port 443 is closed
+- SNI not supported by the server
+- Certificate chain issues
+- Network or proxy errors
 
-== Xavfsizlik va Mas'uliyat
+---
 
-Ushbu dastur xavfsizlik auditi, o'quv va ruxsatli rekognitsiya uchun mo'ljallangan.
+== 🔒 Security & Responsibility
 
-Ruxsatsiz port scan, agressiv tekshiruv yoki uchinchi tomon infratuzilmasiga zarar yetkazish noqonuniy bo'lishi mumkin.
+This tool is designed for *authorized security audits*, *educational purposes*, and *permitted reconnaissance* only.
 
-Tavsiya:
+Unauthorized port scanning, aggressive probing, or causing disruption to third-party infrastructure may be illegal.
 
-* faqat o'z domenlaringizda ishlating;
-* mijoz domenida yozma ruxsat oling;
-* Nmap scan ishlatishdan oldin scope va vaqt oynasini kelishib oling;
-* public OSINT API rate-limitlarini hurmat qiling.
+Best practices:
 
-== Tezkor Buyruqlar
+- Use *only* on domains you own
+- Obtain written permission before testing client domains
+- Agree on scope and testing windows before running Nmap scans
+- Respect rate limits of public OSINT APIs
+
+---
+
+== ⚙️ Quick Commands Reference
 
 [source,powershell]
 ----
-# Dastur ishga tushirish
+# Launch the application
 python whois1.py
 
-# Sintaksis tekshirish
+# Verify syntax
 python -m py_compile whois1.py recon_tool\utils.py recon_tool\workers.py recon_tool\gui.py
 
-# Nmap mavjudligini tekshirish
+# Check Nmap availability
 Get-Command nmap
 
-# Kerakli paketlarni o'rnatish
+# Install all required packages
 pip install PyQt6 python-whois dnspython python-nmap requests cryptography pyOpenSSL builtwith nvdlib Wappalyzer
 ----
 
-== Hozirgi Cheklovlar
+---
 
-* WAF fingerprint taxminiy.
-* CVE qidiruv versiyasiz texnologiya nomiga asoslangan bo'lsa false-positive bo'lishi mumkin.
-* Passive OSINT manbalar barqaror emas; rate-limit yoki timeout bo'lishi mumkin.
-* Subdomain tab GUI tezligi uchun birinchi 1000 ta natijani ko'rsatadi; to'liq ro'yxat RAW/JSON hisobotda saqlanadi.
-* Nmap faqat top 100 TCP portni tekshiradi.
+== ⚠️ Current Limitations
 
+- WAF fingerprinting is heuristic and may produce false positives/negatives
+- CVE searches based on unversioned technology names may yield false positives
+- Passive OSINT sources are inherently unstable; rate limits and timeouts are expected
+- Subdomain tab displays only the first 1000 results for GUI performance; full list is preserved in RAW/JSON exports
+- Nmap scans are limited to the top 100 TCP ports
+
+---
+
+== 📧 Contact & Contributions
+
+This tool is actively maintained for the security research community. Feedback, bug reports, and feature requests are welcome.
+
+*Happy (Ethical) Hacking!* 🎯
