@@ -1,0 +1,10 @@
+PyQt6
+python-whois
+dnspython
+python-nmap
+requests
+cryptography
+pyOpenSSL
+builtwith
+nvdlib
+Wappalyzer
